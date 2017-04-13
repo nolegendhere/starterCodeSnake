@@ -19,6 +19,20 @@ Game.prototype.drawSnake = function () {
   });
 };
 
+Game.prototype.startGame = function () {
+  setInterval(this.update.bind(this),100);
+};
+
+Game.prototype.clearSnake = function () {
+  $('.snake').removeClass('snake');
+};
+
+Game.prototype.update = function () {
+  this.snake.moveForward(this.rows,this.columns);
+  this.clearSnake();
+  this.drawSnake();
+};
+
 
 $(document).ready(function(){
 
@@ -29,5 +43,6 @@ $(document).ready(function(){
   });
 
   game.drawSnake();
+  game.startGame();
 
 });
