@@ -87,3 +87,9 @@ Snake.prototype.growUp = function () {
     this.previousTail = undefined;
   }
 };
+
+Snake.prototype.hasEatenItself = function () {
+  return this.body.some(function(element,index,array){
+    return (element.row === array[0].row && element.column === array[0].column && index!==0);
+  });
+};

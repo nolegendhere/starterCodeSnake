@@ -21,7 +21,7 @@ Game.prototype.drawSnake = function () {
 };
 
 Game.prototype.startGame = function () {
-  setInterval(this.update.bind(this),100);
+  this.intervalID = setInterval(this.update.bind(this),100);
 };
 
 Game.prototype.clearSnake = function () {
@@ -36,6 +36,11 @@ Game.prototype.update = function () {
     this.clearFood();
     this.generateFood();
     this.drawFood();
+  }
+  if(this.snake.hasEatenItself())
+  {
+    this.stopGame();
+    alert('Game Over');
   }
 
   this.clearSnake();
@@ -61,6 +66,15 @@ Game.prototype.assignControlKeys = function () {
       case 40:
         this.snake.goDown();
         break;
+      case 80:
+        if(this.intervalID)
+        {
+          this.stopGame();
+        }
+        else
+        {
+            this.startGame();
+        }
     }
   }.bind(this));
 };
@@ -80,6 +94,14 @@ Game.prototype.drawFood = function () {
 Game.prototype.clearFood = function () {
   $('.food').removeClass('food');
   this.food = undefined;
+};
+
+Game.prototype.stopGame = function () {
+  if(this.intervalID)
+  {
+    clearInterval(this.intervalID);
+    this.intervalID = undefined;
+  }
 };
 
 
