@@ -43,3 +43,35 @@ Snake.prototype.moveForward = function (maxRows,maxColumns) {
   this.body.pop();
 
 };
+
+Snake.prototype.goLeft = function () {
+
+  if(this.direction === 'up' || this.direction === 'down'){
+    this.direction ='left';
+  }
+
+};
+
+Snake.prototype.goRight = function () {
+
+  if(this.direction === 'up' || this.direction === 'down'){
+    this.direction ='right';
+  }
+
+};
+
+Snake.prototype.goUp = function () {
+
+  if(this.direction === 'left' || this.direction === 'right'){
+    this.direction ='up';
+  }
+
+};
+
+Snake.prototype.goDown = function () {
+
+  if(this.direction === 'left' || this.direction === 'right'){
+    this.direction ='down';
+  }
+
+};
