@@ -40,7 +40,7 @@ Snake.prototype.moveForward = function (maxRows,maxColumns) {
       break;
   }
 
-  this.body.pop();
+  this.previousTail = this.body.pop();
 
 };
 
@@ -74,4 +74,16 @@ Snake.prototype.goDown = function () {
     this.direction ='down';
   }
 
+};
+
+Snake.prototype.hasEatenFood = function (food) {
+  return this.body[0].row == food.row && this.body[0].column == food.column;
+};
+
+Snake.prototype.growUp = function () {
+  if(this.previousTail)
+  {
+    this.body.push(this.previousTail);
+    this.previousTail = undefined;
+  }
 };

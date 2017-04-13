@@ -30,6 +30,13 @@ Game.prototype.clearSnake = function () {
 
 Game.prototype.update = function () {
   this.snake.moveForward(this.rows,this.columns);
+  if(this.snake.hasEatenFood(this.food))
+  {
+    this.snake.growUp();
+    this.clearFood();
+    this.generateFood();
+    this.drawFood();
+  }
   this.clearSnake();
   this.drawSnake();
 
@@ -67,6 +74,11 @@ Game.prototype.generateFood = function () {
 Game.prototype.drawFood = function () {
   var selector ='[data-row='+this.food.row+'][data-column='+this.food.column +']';
   $(selector).addClass('food');
+};
+
+Game.prototype.clearFood = function () {
+  $('.food').removeClass('food');
+  this.food = undefined;
 };
 
 
