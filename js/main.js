@@ -37,6 +37,7 @@ Game.prototype.update = function () {
     this.generateFood();
     this.drawFood();
   }
+
   this.clearSnake();
   this.drawSnake();
 
