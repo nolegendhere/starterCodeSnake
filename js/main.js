@@ -2,6 +2,7 @@ function Game(options){
     this.rows = options.rows;
     this.columns = options.columns;
     this.snake = options.snake;
+    this.food = undefined;
 
     for(var rowIndex = 0; rowIndex < this.rows; rowIndex++) {
 
@@ -32,32 +33,40 @@ Game.prototype.update = function () {
   this.clearSnake();
   this.drawSnake();
 
+
 };
 
 Game.prototype.assignControlKeys = function () {
-  //var self = this;
+
   $('body').on('keydown',function(e){
-    //console.log(e.keyCode);
 
     switch (e.keyCode) {
       case 37:
-        //console.log("left");
         this.snake.goLeft();
         break;
       case 38:
-        //console.log("uo");
         this.snake.goUp();
         break;
       case 39:
-        //console.log("right");
         this.snake.goRight();
         break;
       case 40:
-        //console.log("down");
         this.snake.goDown();
         break;
     }
   }.bind(this));
+};
+
+Game.prototype.generateFood = function () {
+  this.food = {
+    row: Math.floor(Math.random()*this.rows),
+    column: Math.floor(Math.random()*this.columns)
+  };
+};
+
+Game.prototype.drawFood = function () {
+  var selector ='[data-row='+this.food.row+'][data-column='+this.food.column +']';
+  $(selector).addClass('food');
 };
 
 
@@ -69,8 +78,10 @@ $(document).ready(function(){
     snake: new Snake()
   });
 
-  game.startGame();
+  game.generateFood();
+  game.drawFood();
   game.assignControlKeys();
+  game.startGame();
 
 
 });
